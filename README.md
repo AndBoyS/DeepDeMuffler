@@ -1,2 +1,4 @@
 # DeepDeMuffler
-Unmuffling music using neural networks
+
+Repo to train NNs for the task of de-muffling music 
+
