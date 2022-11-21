@@ -6,19 +6,23 @@ from deep_demuffle.data_utils import AudioSegmentDual, muffle_audio
 
 def main():
     # Filter settings
-    cutoff = 3.667
-    fs = 30.0
-    order = 6
+    cutoff = 40
+    fs = 1600
+    # How strong the filter is
+    order = 15
 
     base_dir = Path().resolve().parent
-
     raw_data_dir = base_dir / 'data/raw'
     train_data_dir = base_dir / 'data/train'
+
     train_data_dir.mkdir(exist_ok=True)
 
-    fps = list(raw_data_dir.glob('*'))
-    for fp in tqdm(fps):
-        output_fp = train_data_dir / fp.name.replace('mp3', 'wav')
+    fps = filter(lambda x: x.suffix in ['.mp3', '.wav'],
+                 raw_data_dir.glob('*'))
+
+    for fp in tqdm(list(fps)):
+
+        output_fp = train_data_dir / fp.with_suffix('.wav').name
 
         audio = AudioSegmentDual.from_mp3(fp)
         muffle_audio(audio, cutoff, fs, order)

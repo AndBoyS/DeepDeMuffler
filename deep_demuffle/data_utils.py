@@ -3,19 +3,15 @@ from pydub import AudioSegment
 from scipy import signal
 
 
-def butter_lowpass_filter(
+def firwin_lowpass_filter(
         data: np.ndarray,
-        cutoff: float,
-        fs: float,
-        order: int = 5
+        cutoff: float = 40,
+        fs: float = 1600,
+        numtaps: int = 10,
         ) -> np.ndarray:
-    nyq = 0.5 * fs
-    normal_cutoff = cutoff / nyq
-    sos = signal.butter(order, normal_cutoff, btype='low', analog=False, output='sos')
-    data = signal.sosfilt(sos, data)
+    h = signal.firwin(numtaps=numtaps, cutoff=cutoff, fs=fs)
+    data = signal.lfilter(h, 1.0, data)
     return data
-
-
 
 
 class AudioSegmentDual(AudioSegment):
@@ -46,11 +42,10 @@ def muffle_audio(
         ):
     audio_array = audio.to_numpy()
 
-    audio_array = butter_lowpass_filter(
+    audio_array = firwin_lowpass_filter(
         audio_array,
-        cutoff=cutoff,
-        fs=fs,
-        order=order,
+        cutoff,
+        fs,
+        order,
     )
-
     audio.from_numpy(audio_array)
