@@ -1,19 +1,21 @@
 import numpy as np
 from pydub import AudioSegment
-from scipy.signal import butter, lfilter
+from scipy import signal
 
 
-def butter_lowpass(cutoff, fs, order=5):
+def butter_lowpass_filter(
+        data: np.ndarray,
+        cutoff: float,
+        fs: float,
+        order: int = 5
+        ) -> np.ndarray:
     nyq = 0.5 * fs
     normal_cutoff = cutoff / nyq
-    b, a = butter(order, normal_cutoff, btype='low', analog=False)
-    return b, a
+    sos = signal.butter(order, normal_cutoff, btype='low', analog=False, output='sos')
+    data = signal.sosfilt(sos, data)
+    return data
 
 
-def butter_lowpass_filter(data, cutoff, fs, order=5):
-    b, a = butter_lowpass(cutoff, fs, order=order)
-    y = lfilter(b, a, data)
-    return y
 
 
 class AudioSegmentDual(AudioSegment):
