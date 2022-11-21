@@ -7,6 +7,9 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9"
+librosa = "^0.9.2"
+pydub = "^0.25.1"
+mpire = "^2.6.0"
 
 
 [build-system]
