@@ -9,8 +9,11 @@ readme = "README.md"
 python = "^3.9"
 pydub = "^0.25.1"
 mpire = "^2.6.0"
-numpy = "^1.23.5"
+numpy = "1.19.5"
 scipy = "^1.9.3"
+tensorflow = "2.6.0"
+keras = "2.6.0"
+h5py = "3.1.0"
 
 
 [build-system]
