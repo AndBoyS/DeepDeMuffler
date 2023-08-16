@@ -1,7 +1,7 @@
 from tensorflow import keras
 import argparse
-from models.afilm import AFiLM
-from models.tfilm import TFiLM
+from afilm.models.afilm import AFiLM
+from afilm.models import TFiLM
 from utils import upsample_wav
 
 

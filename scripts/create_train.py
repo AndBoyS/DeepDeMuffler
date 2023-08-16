@@ -13,7 +13,7 @@ def main():
 
     base_dir = Path().resolve().parent
     raw_data_dir = base_dir / 'data/raw'
-    train_data_dir = base_dir / 'data/train'
+    train_data_dir = base_dir / 'data/muffled'
 
     train_data_dir.mkdir(exist_ok=True)
 
